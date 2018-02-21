@@ -1,13 +1,13 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from sqlalchemy import exc
-from server.api.models import User
+from server.api.auth.models import User
 from server import db
 
 
-users_blueprint = Blueprint('users', __name__)
+auth_blueprint = Blueprint('auth', __name__, template_folder='./templates')
 
 
-@users_blueprint.route('/ping', methods=['GET'])
+@auth_blueprint.route('/ping', methods=['GET'])
 def ping_pong():
     return jsonify({
         'status': 'success',
@@ -15,7 +15,17 @@ def ping_pong():
     })
 
 
-@users_blueprint.route('/users', methods=['POST'])
+@auth_blueprint.route('/login', methods=['GET'])
+def login():
+    return render_template('login.html')
+
+
+@auth_blueprint.route('/signup', methods=['GET'])
+def signup():
+    return render_template('signup.html')
+
+
+@auth_blueprint.route('/users', methods=['POST'])
 def add_user():
     post_data = request.get_json()
     if not post_data:
@@ -51,7 +61,7 @@ def add_user():
         return jsonify(response_object), 400
 
 
-@users_blueprint.route('/users', methods=['GET'])
+@auth_blueprint.route('/users', methods=['GET'])
 def get_all_users():
     """Get all users"""
     users = User.query.all()

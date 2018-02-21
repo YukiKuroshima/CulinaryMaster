@@ -1,3 +1,12 @@
+# Endpoints
+
+```
+GET /profile
+GET /login
+GET /singup
+GET /recipe
+```
+
 # Requrements
 * Docker
 * Docker compose
@@ -11,9 +20,6 @@ cd myproject
 ```
 
 2. Clone this repo
-```
-git clone https://github.com/YukiKuroshima/docker-flask-mysql.git .
-```
 
 3. Start up the docker containers
 ```

@@ -6,7 +6,7 @@ import unittest
 from flask_script import Manager
 
 from server import create_app, db
-from server.api.models import User
+from server.api.auth.models import User
 
 
 app = create_app()

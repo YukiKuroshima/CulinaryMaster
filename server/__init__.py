@@ -27,7 +27,11 @@ def create_app():
     db.init_app(app)
 
     # register blueprints
-    from server.api.views import users_blueprint
-    app.register_blueprint(users_blueprint)
+    from server.api.auth.views import auth_blueprint
+    from server.api.profile.views import profile_blueprint
+    from server.api.recipe.views import recipe_blueprint
+    app.register_blueprint(auth_blueprint)
+    app.register_blueprint(profile_blueprint)
+    app.register_blueprint(recipe_blueprint)
 
     return app
