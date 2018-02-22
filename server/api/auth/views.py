@@ -19,7 +19,6 @@ def ping_pong():
 def login():
     return render_template('login.html')
 
-
 @auth_blueprint.route('/signup', methods=['GET'])
 def signup():
     return render_template('signup.html')
@@ -81,3 +80,7 @@ def get_all_users():
         }
     }
     return jsonify(response_object), 200
+
+@auth_blueprint.route('/', methods=['GET'])
+def landing():
+    return render_template('landing.html')
