@@ -5,10 +5,12 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from flask_login import LoginManager
 
 
 # instantiate the db
 db = SQLAlchemy()
+login_manager = LoginManager()
 
 
 def create_app():
@@ -25,6 +27,9 @@ def create_app():
 
     # set up extensions
     db.init_app(app)
+
+    # set up extensions
+    login_manager.init_app(app)
 
     # register blueprints
     from server.api.auth.views import auth_blueprint
