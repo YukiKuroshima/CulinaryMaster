@@ -2,11 +2,51 @@
 <html>
 <head>
 	<title>Culunary Master</title>
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+  	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='layout.css')}}"
 </head>
 <body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-collapse" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<div id="logo">
+					<a href="#" class="navbar-brand"><i class="fas fa-utensils"></i> | Culunary Master</a>
+				</div>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-nav-collapse">
+				<form class="navbar-form navbar-left">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><i class="far fa-heart fa-lg"></i></a></li>
+					<li><a href="#"><i class="far fa-user fa-lg"></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+	<div class="container">
+		<div class="jumbotron">
+			<h2><i class="fas fa-chart-pie fa-2x"></i> Let's Get Creative With Food!</h2>
+			<p>The Web Application That Help You Reach Your Diet Goal!</p>
+			<a href="newPost.html" id="newPost"><i class="fas fa-plus-circle"></i> New Inventory</a>
+		</div>
+	</div>
+
 	{% block body %} {% endblock%}
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
