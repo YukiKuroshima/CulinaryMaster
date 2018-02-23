@@ -1,7 +1,11 @@
-from flask import Blueprint, jsonify, request, render_template
+from flask import Blueprint, jsonify, request, render_template, \
+        session, redirect, url_for
 from sqlalchemy import exc
 from server.api.auth.models import User
 from server import db
+from server.api.auth.forms import SignupForm, LoginForm
+from sqlalchemy.exc import IntegrityError
+from flask_login import login_user, login_required, logout_user
 
 
 auth_blueprint = Blueprint('auth', __name__, template_folder='./templates')
@@ -15,18 +19,48 @@ def ping_pong():
     })
 
 
-@auth_blueprint.route('/login', methods=['GET'])
+@auth_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    form = LoginForm()
+    if form.validate_on_submit():
+        # TODO
+        # Find user by email. 'Using User.get_one_user_by_email'
+        temp = User.get_one_user_by_email(form.email.data)
+        # If no user found
+        if temp is None:
+            # Add error message to form.email.errors
+            form.email.errors.append('No accound found')
+        # else
+        else:
+            # Check if the password is correct. Using is.password_correct()
+            # if correct
+            if temp.is_password_correct(form.password.data):
+                # redirect to /profile
+                return "Success"
+            # else
+            else:
+                # add error massage to form.password.errors
+                return "Failed"
 
-@auth_blueprint.route('/login', methods=['POST'])
-def auth_login():
-    return "logged in"
+    return render_template('login.html', form=form)
 
 
-@auth_blueprint.route('/signup', methods=['GET'])
+@auth_blueprint.route('/signup', methods=['GET', 'POST'])
 def signup():
-    return render_template('signup.html')
+    """ Sign up user """
+    form = SignupForm()
+    if form.validate_on_submit():
+        new_user = User(first_name=form.first_name.data, last_name=form.last_name.data, 
+                email=form.email.data, password=form.password.data)
+        try:
+            new_user.save()
+            login_user(new_user)
+            return new_user.tojson()
+        except IntegrityError as e:
+            form.email.errors.append('This email is taken')
+
+    # Render template iff `GET` or validation did not pass
+    return render_template('signup.html', form=form)
 
 
 @auth_blueprint.route('/users', methods=['POST'])
@@ -85,6 +119,14 @@ def get_all_users():
         }
     }
     return jsonify(response_object), 200
+
+
+@auth_blueprint.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/login')
+
 
 @auth_blueprint.route('/', methods=['GET'])
 def landing():

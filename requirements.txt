@@ -7,3 +7,6 @@ mysqlclient
 flask-cors==3.0.2
 pandas
 numpy
+Flask-WTF==0.14.2
+WTForms==2.1
+flask-login

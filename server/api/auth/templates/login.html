@@ -20,6 +20,18 @@
 					<p>No account?<a href="#/signup">Sign up!</a></p>
 				</form>
 				</div>
+                                <div class="sign-up-form">
+                                        {% from "_form_field.html" import render_field %}
+                                        Sign Up
+                                        <form action="/login" method="POST">
+                                                {{ form.csrf_token }}
+                                                {{ render_field(form.email, "form-control") }}
+                                                {{ render_field(form.password, "form-control") }}
+                                                <input type="submit" class="btn btn-primary" value="Log In">
+                                        </form>
+                                        <br>
+					<p>No account?<a href="/signup">Sign up!</a></p>
+                                </div>
 			</center>
 		</div>
 		<div class="col-md-4">
