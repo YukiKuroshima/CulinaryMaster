@@ -6,14 +6,15 @@ python:
 notifications:
         email: false
 
-        services:
-                - mysql
+services:
+        - mysql
 
-        before_install:
-                - mysql -e 'CREATE DATABASE IF NOT EXISTS users_test;'
 
-        install:
-                - pip install -r ./requirements.txt
+before_install:
+        - mysql -e 'CREATE DATABASE IF NOT EXISTS users_test;'
 
-        script: 
-                - python manage.py test
+install:
+        - pip install -r ./requirements.txt
+
+script: 
+        - python ./manage.py test

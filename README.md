@@ -58,7 +58,7 @@ docker-compose --build up
 
 Run default test cases (Testing config, template rendering, and database connection
 ```
-docker-compose run users-services python manage.py test
+docker-compose run users-service python manage.py test
 ```
 
 
