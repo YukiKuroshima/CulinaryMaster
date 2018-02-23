@@ -22,25 +22,18 @@ def ping_pong():
 @auth_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
-        # TODO
-        # Find user by email. 'Using User.get_one_user_by_email'
-        temp = User.get_one_user_by_email(form.email.data)
-        # If no user found
-        if temp is None:
-            # Add error message to form.email.errors
-            form.email.errors.append('No accound found')
-        # else
-        else:
-            # Check if the password is correct. Using is.password_correct()
-            # if correct
-            if temp.is_password_correct(form.password.data):
-                # redirect to /profile
-                return "Success"
-            # else
-            else:
-                # add error massage to form.password.errors
-                return "Failed"
+    # if form.validate_on_submit():
+    #     # Program comes here only when user inputs valid data.
+    #     # TODO
+    #     # Find user by email. 'Using User.get_one_user_by_email'
+    #     # If no user found
+    #         # Add error message to form.email.errors
+    #     # else
+    #         # Check if the password is correct. Using is.password_correct()
+    #         # if correct
+    #             # redirect to /profile
+    #         # else
+    #             # add error massage to form.password.errors
 
     return render_template('login.html', form=form)
 
