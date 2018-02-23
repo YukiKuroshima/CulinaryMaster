@@ -28,8 +28,8 @@ docker-compose up
 
 4. Create tables and seed some data
 ```
-docker-compose run users-services python manage.py recreate_db
-docker-compose run users-services python manage.py seed_db
+docker-compose run users-service python manage.py recreate_db
+docker-compose run users-service python manage.py seed_db
 ```
 
 5. Go to your browser and type below
@@ -58,7 +58,7 @@ docker-compose --build up
 
 Run default test cases (Testing config, template rendering, and database connection
 ```
-docker-compose run users-services python manage.py test
+docker-compose run users-service python manage.py test
 ```
 
 

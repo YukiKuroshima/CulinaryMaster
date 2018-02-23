@@ -24,7 +24,6 @@ def auth_login():
     return "logged in"
 
 
-
 @auth_blueprint.route('/signup', methods=['GET'])
 def signup():
     return render_template('signup.html')
