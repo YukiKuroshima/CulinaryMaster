@@ -10,14 +10,16 @@
 				<h1>Log In</h1>
 				<br>
 				<div class="sign-up-form">
+					{% from "_form_field.html" import render_field %}
 					<form action="/login" method="POST">
-					<input class="form-control" type="email" name="email" placeholder="example@gmail.com" required="">
+                                {{ form.csrf_token }}
+                                {{ render_field(form.email, "form-control") }}
+                                <br>
+                                {{ render_field(form.password, "form-control") }}
+                                <br>
+					<button type="submit" class="btn btn-primary">Log In</button>
 					<br>
-					<input class="form-control" type="password" name="passowrd" placeholder="password" required="">
-					<br>
-					<button type="submit" class="btn btn-primary">Create Account</button>
-					<br>
-					<p>No account?<a href="#/signup">Sign up!</a></p>
+					<p>No account?<a href="/signup">Sign up!</a></p>
 				</form>
 				</div>
 			</center>

@@ -22,6 +22,18 @@ def ping_pong():
 @auth_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        user_email = form.email.data
+        user_pwd = form.password.data
+        try:
+            user = User.get_one_user_by_email(email=user_email)
+            if user.is_password_correct(pswd = user_pwd):
+                return "profile"
+            else
+                form.password.errors.append('Incorrect Password')
+        except IntegrityError as e:
+            form.email.errors.append('Incorrect Email')
+
     # if form.validate_on_submit():
     #     # Program comes here only when user inputs valid data.
     #     # TODO
