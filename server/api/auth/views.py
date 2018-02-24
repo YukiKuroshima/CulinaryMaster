@@ -29,7 +29,7 @@ def login():
             user = User.get_one_user_by_email(email=user_email)
             if user.is_password_correct(pswd = user_pwd):
                 return "profile"
-            else
+            else:
                 form.password.errors.append('Incorrect Password')
         except IntegrityError as e:
             form.email.errors.append('Incorrect Email')
