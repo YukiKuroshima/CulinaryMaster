@@ -12,7 +12,6 @@
 					<br>
                                         <div class="sign-up-form">
                                                 {% from "_form_field.html" import render_field %}
-                                                Sign Up
                                                 <form action="/signup" method="POST">
                                                         {{ form.csrf_token }}
                                                         {{ render_field(form.first_name, "form-control") }}
