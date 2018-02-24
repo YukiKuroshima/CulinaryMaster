@@ -61,6 +61,15 @@ Run default test cases (Testing config, template rendering, and database connect
 docker-compose run users-service python manage.py test
 ```
 
+# Want to use mysql client?
+```
+docker-compose up
+#Open a new tab in terminal
+docker-compose exec db bash
+mysql -u root -p
+# type "root"
+# if success, you are in the mysql client
+```
 
 # TODO
 * Scriptize useful commands
