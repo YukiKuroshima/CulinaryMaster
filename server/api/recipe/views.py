@@ -9,3 +9,12 @@ def recipe():
 
     data = data_processing()
     return render_template('recipe.html', data=data)
+
+@recipe_blueprint.route('/newInventory', methods=['GET'])
+def newInventory():
+
+    return render_template('newInventory.html')
+
+
+
+
