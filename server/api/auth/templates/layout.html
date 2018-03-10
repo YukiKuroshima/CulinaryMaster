@@ -7,6 +7,13 @@
   	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
   	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
   	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/lib/jquery-3.3.1.min.js') }}"></script>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/inventory.css') }}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+	<!-- <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"> -->
+
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -33,6 +40,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/preference"><i class="far fa-heart fa-lg"></i></a></li>
 					<li><a href="/profile"><i class="far fa-user fa-lg"></i></a></li>
+					<li><a href="/login">Login</a></li>
 				</ul>
 			</div>
 		</div>
@@ -49,6 +57,6 @@
 
 	{% block body %} {% endblock%}
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+	<script type="text/javascript" src="{{url_for('static', filename='js/inventory.js')}}"></script>
 </body>
 </html>

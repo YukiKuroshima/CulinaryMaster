@@ -14,7 +14,3 @@ def recipe():
 def newInventory():
 
     return render_template('newInventory.html')
-
-
-
-

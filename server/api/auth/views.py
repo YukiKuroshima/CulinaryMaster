@@ -27,7 +27,7 @@ def login():
         if user is not None:
             if user.is_password_correct(pswd = form.password.data):
                 login_user(user)
-                return "profile"
+                return redirect("/profile")
             else:
                 form.password.errors.append('Incorrect Password')
         else:
