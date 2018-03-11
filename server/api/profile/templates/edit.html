@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div id="profile" class="container">
+	<div id="card" class="ui card">
+		<div class="image">
+			<img src="http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png">
+		</div>
+		{% from "_form_field.html" import render_field %}
+		<form action="/profile/edit" method="POST">
+			<div class="content">
+                                {{ form.csrf_token }}
+                                {{ render_field(form.name, "form-control") }}
+                                {{ render_field(form.imageURL, "form-control") }}
+				<div class="meta">
+					<span class="email">test@gmail.com</span>
+					<span class="date">Joined 2018</span>
+				</div>
+				<div class="description">
+					This is where you put your user pref
+				</div>
+			</div>
+			<div class="extra content">
+				<p href="#">
+					<i class="far fa-folder-open"></i>
+					10 inventories
+				</p>
+			</div>
+			<button type="submit" class="btn btn-primary">Save</button>
+		</div>
+	</form>
+</div>
+
+
+{% endblock%}

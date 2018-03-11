@@ -7,3 +7,11 @@
 	float: right;
 	color: gray;
 }
+
+#profile .ui.card{
+	width: 500px;
+}
+
+.date {
+	float: right;
+}
