@@ -1,0 +1,9 @@
+#profile {
+	width: 300px;
+	margin: 50px auto;
+}
+
+#profile .fa-edit {
+	float: right;
+	color: gray;
+}

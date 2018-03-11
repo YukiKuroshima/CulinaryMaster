@@ -7,12 +7,14 @@
   	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
   	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
   	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css">
 
 
 	<script type="text/javascript" src="{{ url_for('static', filename='js/lib/jquery-3.3.1.min.js') }}"></script>
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/inventory.css') }}">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
-	<!-- <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"> -->
+
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/profile.css') }}">
 
 </head>
 <body>
@@ -41,6 +43,7 @@
 					<li><a href="/preference"><i class="far fa-heart fa-lg"></i></a></li>
 					<li><a href="/profile"><i class="far fa-user fa-lg"></i></a></li>
 					<li><a href="/login">Login</a></li>
+					<li><a href="/logout">Logout</a></li>
 				</ul>
 			</div>
 		</div>
