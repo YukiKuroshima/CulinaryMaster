@@ -27,6 +27,8 @@ def edit_profile():
 		elif image is None:
 			form.image.errors.append('Invalid image url')
 		else:
-			data[]
+			data['name'] = name
+			data['image'] = image
+			json_data = json.dumps(data)
 			return redirect("/profile")
 	return render_template('edit.html', form=form)
