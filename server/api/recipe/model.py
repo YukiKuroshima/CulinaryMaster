@@ -19,6 +19,10 @@ class Ingredient(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def remove(self):
+        """Delete ingredient to database"""
+        db.session.delete(self)
+        db.session.commit()
 
     def tojson(self):
         """Represent ingredient data as JSON object"""

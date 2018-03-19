@@ -26,3 +26,10 @@ def newInventory():
 def add_ingridient():
     current_user.add_ingridient(request.form['item'])
     return render_template('newInventory.html')
+
+
+@login_required
+@recipe_blueprint.route('/ingridient', methods=['DELETE'])
+def delete_ingridient():
+    current_user.remove_ingridient(request.form['item'])
+    return render_template('newInventory.html')

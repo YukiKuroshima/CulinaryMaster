@@ -50,6 +50,18 @@ class User(UserMixin, db.Model):
         return Ingredient(name=item_name, user_id=self.id).save()
 
     """
+    Remove an ingridient
+
+    Parameters
+    ----------
+    item_name : Str
+        Name of ingridient
+
+    """
+    def remove_ingridient(self, item_name):
+        Ingredient.query.filter_by(name=item_name, user_id=self.id).first().remove()
+
+    """
     Check if the password given is correct or not
     Correct password is exactly same as the one that is stored in the database
 
