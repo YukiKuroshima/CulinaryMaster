@@ -3,6 +3,7 @@ import json
 from server import db
 from server import login_manager
 from flask_login import UserMixin
+from server.api.recipe.model import Ingredient
 
 
 class User(UserMixin, db.Model):
@@ -26,6 +27,15 @@ class User(UserMixin, db.Model):
         db.session.add(self)
         db.session.commit()
 
+    """
+    Get all ingridients for an user
+
+    Returns
+    -------
+    List of ingridient object
+    """
+    def get_ingridients(self):
+        return Ingredient.query.filter_by(user_id=self.id)
 
     """
     Check if the password given is correct or not

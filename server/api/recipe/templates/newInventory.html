@@ -8,13 +8,11 @@
 		
 		<input type="text" placeholder="Add Groceries to Inventory">
 
-
 		<ul>
-			<li><span><i class="fa fa-trash"></i></span> Chicken Breast</li>
-			<li><span><i class="fa fa-trash"></i></span> Milk</li>
-			<li><span><i class="fa fa-trash"></i></span> Eggs</li>
-
-		</ul>
+                        {% for elem in ingridients %}
+                        <li><span><i class="fa fa-trash"></i></span> {{ elem.name }}</li>
+                        {% endfor %}
+                </ul>
 	</div>
 </div>
 
