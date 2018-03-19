@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from server.dp import data_processing
 from flask_login import  login_required, current_user
 from server.api.recipe.model import Ingredient
@@ -18,4 +18,11 @@ def recipe():
 @recipe_blueprint.route('/newInventory', methods=['GET'])
 def newInventory():
     ingridients = current_user.get_ingridients()
-    return render_template(newInventory.html', ingridients=ingridients)
+    return render_template('newInventory.html', ingridients=ingridients)
+
+
+@login_required
+@recipe_blueprint.route('/ingridient', methods=['POST'])
+def add_ingridient():
+    current_user.add_ingridient(request.form['item'])
+    return render_template('newInventory.html')

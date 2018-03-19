@@ -11,9 +11,19 @@ $("#inventory input[type='text']").keypress(function(event){
 		var item = $(this).val();
 		$(this).val("");
 		$("#inventory ul").append("<li><span><i class='fa fa-trash'></i></span> " + item + "</li>");
+
+    ajaxAddIngridient(item)
 	}
 });
 
-// $("#inventory .fa-plus").click(function(){
-// 	$("#inventory input[type='text']").fadeToggle();
-// });
+
+function ajaxAddIngridient(item) {
+  console.log(item);
+  $.post(
+    "/ingridient",
+    { item: item },
+  ) .done(function() {
+  }) .fail(function() {
+    alert( "Something went wrong" );
+  })
+}
