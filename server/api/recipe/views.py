@@ -17,6 +17,5 @@ def recipe():
 @login_required
 @recipe_blueprint.route('/newInventory', methods=['GET'])
 def newInventory():
-
     ingridients = current_user.get_ingridients()
-    return render_template('newInventory.html', ingridients=ingridients)
+    return render_template(newInventory.html', ingridients=ingridients)
