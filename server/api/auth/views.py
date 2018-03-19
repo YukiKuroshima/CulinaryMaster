@@ -58,7 +58,7 @@ def signup():
         try:
             new_user.save()
             login_user(new_user)
-            return new_user.tojson()
+            return redirect("/profile")
         except IntegrityError as e:
             form.email.errors.append('This email is taken')
 
