@@ -8,10 +8,10 @@
 			<img src={{data.image}}>
 		</div>
 		<div class="content">
-			<p class="header">{{data.name}}<a href="/profile/edit"><i class="fas fa-edit"></i></a></p>
+                        <p class="header">{{data.first_name}} {{ data.last_name }}<a href="/profile/edit"><i class="fas fa-edit"></i></a></p>
 			<div class="meta">
-				<span class="email">test@gmail.com</span>
-				<span class="date">Joined 2018</span>
+				<span class="email">{{data.email}}</span>
+				<span class="date">{{data.created_at}}</span>
 			</div>
 			<div class="description">
 				This is where you put your user pref

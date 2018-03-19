@@ -32,18 +32,6 @@ def login():
                 form.password.errors.append('Incorrect Password')
         else:
             form.email.errors.append('Incorrect Email')
-    # if form.validate_on_submit():
-    #     # Program comes here only when user inputs valid data.
-    #     # TODO
-    #     # Find user by email. 'Using User.get_one_user_by_email'
-    #     # If no user found
-    #         # Add error message to form.email.errors
-    #     # else
-    #         # Check if the password is correct. Using is.password_correct()
-    #         # if correct
-    #             # redirect to /profile
-    #         # else
-    #             # add error massage to form.password.errors
 
     return render_template('login.html', form=form)
 
