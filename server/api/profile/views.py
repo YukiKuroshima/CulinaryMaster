@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect
-from flask_login import login_required
+from flask_login import login_required, current_user
 from server.api.profile.form import EditProfileForm
 import json
 
@@ -13,7 +13,7 @@ json_data = json.dumps(data)
 @profile_blueprint.route('/profile', methods=['GET'])
 @login_required
 def profile():
-    return render_template('profile.html', data=data)
+    return render_template('profile.html', data=current_user)
 
 @profile_blueprint.route('/profile/edit', methods=['GET', 'POST'])
 @login_required

@@ -7,6 +7,7 @@ from flask_script import Manager
 
 from server import create_app, db
 from server.api.auth.models import User
+from server.api.recipe.model import Ingredient
 
 
 app = create_app()
@@ -34,10 +35,15 @@ def recreate_db():
 @manager.command
 def seed_db():
     """Seeds the database."""
-    db.session.add(User(username='michael', email="michael@realpython.com"))
-    db.session.add(User(username='michaelherman', email="michael@mherman.org"))
-    db.session.commit()
+    test_user = User(first_name="First",
+         last_name="Last",
+         email="test@gmail.com",
+         password="11111111"
+         )
+    test_user.save()
 
+    Ingredient(name="Test ingridient1", user_id=test_user.id).save()
+    Ingredient(name="Test ingridient2", user_id=test_user.id).save()
 
 if __name__ == '__main__':
     manager.run()

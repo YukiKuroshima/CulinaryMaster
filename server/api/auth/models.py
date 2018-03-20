@@ -3,6 +3,7 @@ import json
 from server import db
 from server import login_manager
 from flask_login import UserMixin
+from server.api.recipe.model import Ingredient
 
 
 class User(UserMixin, db.Model):
@@ -26,6 +27,39 @@ class User(UserMixin, db.Model):
         db.session.add(self)
         db.session.commit()
 
+    """
+    Get all ingridients for an user
+
+    Returns
+    -------
+    List of ingridient object
+    """
+    def get_ingridients(self):
+        return Ingredient.query.filter_by(user_id=self.id)
+
+    """
+    Add an ingridient
+
+    Parameters
+    ----------
+    item_name : Str
+        Name of ingridient
+
+    """
+    def add_ingridient(self, item_name):
+        return Ingredient(name=item_name, user_id=self.id).save()
+
+    """
+    Remove an ingridient
+
+    Parameters
+    ----------
+    item_name : Str
+        Name of ingridient
+
+    """
+    def remove_ingridient(self, item_name):
+        Ingredient.query.filter_by(name=item_name, user_id=self.id).first().remove()
 
     """
     Check if the password given is correct or not
