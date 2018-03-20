@@ -4,13 +4,21 @@ from wtforms.validators import InputRequired, Length
 
 
 class EditProfileForm(FlaskForm):
-    name = StringField(
-            'name',
+    first_name = StringField(
+            'first_name',
             validators=[
-                InputRequired(message='Name is required'),
-                Length(min=8, max=30),
+                InputRequired(message='First name is required'),
+                Length(min=1, max=30),
                 ],
-            render_kw={"placeholder": "Name"}
+            render_kw={"placeholder": "First Name"}
+            )
+    last_name = StringField(
+            'last_name',
+            validators=[
+                InputRequired(message='Last name is required'),
+                Length(min=1, max=30),
+                ],
+            render_kw={"placeholder": "Last Name"}
             )
     imageURL = StringField(
             'image',

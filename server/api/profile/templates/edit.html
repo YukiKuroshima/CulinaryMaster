@@ -11,7 +11,8 @@
 		<form action="/profile/edit" method="POST">
 			<div class="content">
                                 {{ form.csrf_token }}
-                                {{ render_field(form.name, "form-control") }}
+                                {{ render_field(form.first_name, "form-control") }}
+                                {{ render_field(form.last_name, "form-control") }}
                                 {{ render_field(form.imageURL, "form-control") }}
 				<div class="meta">
 					<span class="email">test@gmail.com</span>

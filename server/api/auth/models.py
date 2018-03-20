@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
+    image = db.Column(db.String(128), nullable=True)
     created_at = db.Column(db.DateTime, nullable=False)
 
     def __init__(self, first_name, last_name, email, password):
@@ -24,6 +25,21 @@ class User(UserMixin, db.Model):
 
     def save(self):
         """Add user to database"""
+        db.session.add(self)
+        db.session.commit()
+
+    def update_image(self, image):
+
+        db.session.add(self)
+        db.session.commit()
+
+
+    """
+    updates user's name 
+    """
+    def update_name(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
         db.session.add(self)
         db.session.commit()
 
