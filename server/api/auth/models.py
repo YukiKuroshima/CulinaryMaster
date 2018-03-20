@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
-    image = db.Column(db.String(128), nullable=True)
+    image = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
 
     def __init__(self, first_name, last_name, email, password):
@@ -21,6 +21,7 @@ class User(UserMixin, db.Model):
         self.last_name = last_name
         self.email = email
         self.password = password
+        self.image = "http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png"
         self.created_at = datetime.datetime.utcnow()
 
     def save(self):
@@ -29,7 +30,7 @@ class User(UserMixin, db.Model):
         db.session.commit()
 
     def update_image(self, image):
-
+        self.image = image
         db.session.add(self)
         db.session.commit()
 

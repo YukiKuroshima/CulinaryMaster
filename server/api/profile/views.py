@@ -30,5 +30,6 @@ def edit_profile():
 		else:
 			#put updated name and image to database
 			current_user.update_name(first_name, last_name)
+			current_user.update_image(image)
 			return redirect("/profile")
 	return render_template('edit.html', form=form)
