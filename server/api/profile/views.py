@@ -6,8 +6,6 @@ import json
 profile_blueprint = Blueprint('profile', __name__, template_folder='./templates')
 
 
-
-
 @profile_blueprint.route('/profile', methods=['GET'])
 @login_required
 def profile():

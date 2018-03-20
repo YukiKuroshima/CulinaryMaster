@@ -29,6 +29,9 @@ class User(UserMixin, db.Model):
         db.session.add(self)
         db.session.commit()
 
+    """
+    updates user's image 
+    """
     def update_image(self, image):
         self.image = image
         db.session.add(self)
