@@ -11,17 +11,13 @@ preference_blueprint = Blueprint('preference', __name__, template_folder='./temp
 def profile():
     form = EditPreferenceForm()
     if form.validate_on_submit():
-        first_name = form.first_name.data
-        last_name = form.last_name.data
-        image = form.imageURL.data
-        if first_name is None:
-            form.first_name.errors.append('Invalid first name')
-        elif last_name is None:
-            form.last_name.errors.append('Invalid last name')
-        elif image is None:
-            form.image.errors.append('Invalid image url')
-        else:
-            current_user.update_name(first_name, last_name)
-            current_user.update_image(image)
-            return redirect("/preference")
-    return render_template('preference.html', data=current_user, form=form)
+        allergy_str = form.allergy.data
+        allergy_list = [x.strip() for x in allergy_str.split(',')]
+        current_user.remove_all_allergies()
+        current_user.add_allergies(allergy_list)
+        return redirect("/preference")
+
+    else:
+        allergies = current_user.get_allergies()
+        print(allergies)
+        return render_template('preference.html', allergies=allergies, form=form)
