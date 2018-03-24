@@ -4,6 +4,7 @@ from server import db
 from server import login_manager
 from flask_login import UserMixin
 from server.api.recipe.model import Ingredient
+from server.api.preference.models import Allergy
 
 
 class User(UserMixin, db.Model):
@@ -80,6 +81,48 @@ class User(UserMixin, db.Model):
     """
     def remove_ingridient(self, item_name):
         Ingredient.query.filter_by(name=item_name, user_id=self.id).first().remove()
+
+    """
+    Get all allergies for an user
+
+    Returns
+    -------
+    List of ingridient object
+    """
+    def get_allergies(self):
+        return Allergy.query.filter_by(user_id=self.id)
+
+    """
+    Add an allergy
+
+    Parameters
+    ----------
+    item_name : Str
+        Name of allergy
+    """
+    def add_allergy(self, item_name):
+        return Allergy(name=item_name, user_id=self.id).save()
+
+    """
+    Add multiple allergies
+
+    Parameters
+    ----------
+    item_name : List of Str
+        List of names of allergies
+    """
+    def add_allergies(self, items_name):
+        for item_name in items_name:
+            self.add_allergy(item_name)
+
+
+    """
+    Remove all allergy for an user
+
+    """
+    def remove_all_allergies(self):
+        for allergy in Allergy.query.filter_by(user_id=self.id):
+            allergy.remove()
 
     """
     Check if the password given is correct or not

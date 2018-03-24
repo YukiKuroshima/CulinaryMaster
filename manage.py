@@ -8,6 +8,7 @@ from flask_script import Manager
 from server import create_app, db
 from server.api.auth.models import User
 from server.api.recipe.model import Ingredient
+from server.api.preference.models import Allergy
 
 
 app = create_app()
@@ -44,6 +45,9 @@ def seed_db():
 
     Ingredient(name="Test ingridient1", user_id=test_user.id).save()
     Ingredient(name="Test ingridient2", user_id=test_user.id).save()
+
+    Allergy(name="Test allergy 1", user_id=test_user.id).save()
+    Allergy(name="Test allergy 2", user_id=test_user.id).save()
 
 if __name__ == '__main__':
     manager.run()
