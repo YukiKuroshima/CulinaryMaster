@@ -35,8 +35,10 @@ def create_app():
     from server.api.auth.views import auth_blueprint
     from server.api.profile.views import profile_blueprint
     from server.api.recipe.views import recipe_blueprint
+    from server.api.preference.views import preference_blueprint
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(profile_blueprint)
     app.register_blueprint(recipe_blueprint)
+    app.register_blueprint(preference_blueprint)
 
     return app
