@@ -91,11 +91,6 @@ def get_sorted_popular_property(recipe_data):
 
 
 
-
-
-
-
-
 def find_matching_recipes(keywords, recipes_data):
     """
     Given a list of keywords find recipes that match the ingredients and return all the recipes
@@ -123,7 +118,7 @@ temp_data = recipes_df_json[0:1]
 temp_data = list(map(lambda x: x['ingredients'], temp_data))
 
 
-keywords = ["chicken", "avocado"]
+inventory_keywords = ["lettuce", "chicken", "apple", "tomato"]
 # print if "chicken" is in the ingredient list
 # for x in temp_data:
 #     print(x)
@@ -139,10 +134,15 @@ for value in values:
 is_one_hot_true = map(lambda x: x == np.float(1), recipes_df.iloc[0])
 keywords_in_1st_recipe = (recipes_df.iloc[0][is_one_hot_true])
 print(keywords_in_1st_recipe)
-if keywords[0] in keywords_in_1st_recipe:
-    print("found")
-else:
-    print("none"
+
+found_count = 0
+for keyword in inventory_keywords:
+    if keyword in keywords_in_1st_recipe:
+        print("found 1")
+        found_count += 1
+
+
+
 
 
 
