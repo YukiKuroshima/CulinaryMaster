@@ -5,6 +5,8 @@ from server import login_manager
 from flask_login import UserMixin
 from server.api.recipe.model import Ingredient
 from server.api.preference.models import Allergy
+from server.api.preference.models import Preference
+
 
 
 class User(UserMixin, db.Model):
@@ -123,6 +125,23 @@ class User(UserMixin, db.Model):
     def remove_all_allergies(self):
         for allergy in Allergy.query.filter_by(user_id=self.id):
             allergy.remove()
+
+    """
+    Add pref 
+
+    """
+    def add_pref(self, diet_pref, personal_pref):
+        for pref in Preference.query.filter_by(user_id=self.id):
+            pref.remove()
+        return Preference(diet_pref=diet_pref, personal_pref=personal_pref, user_id=self.id).save()
+
+
+    """
+    Remove pref 
+
+    """
+    def get_pref(self):
+        return Preference.query.filter_by(user_id=self.id)
 
     """
     Check if the password given is correct or not

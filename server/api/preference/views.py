@@ -15,6 +15,12 @@ def profile():
         allergy_list = [x.strip() for x in allergy_str.split(',')]
         current_user.remove_all_allergies()
         current_user.add_allergies(allergy_list)
+
+        diet_pref = form.diet_pref.data
+
+        personal_pref = ""
+        current_user.add_pref(diet_pref,personal_pref)
+
         #Change class allergy to preference
         #change allergy table to preference table
         #have column for allergy, 
@@ -23,5 +29,7 @@ def profile():
 
     else:
         allergies = current_user.get_allergies()
-        print(allergies)
-        return render_template('preference.html', allergies=allergies, form=form)
+        diet_pref = current_user.get_pref()
+        print(diet_pref)
+        
+        return render_template('preference.html', allergies=allergies, diet_pref=diet_pref, form=form)

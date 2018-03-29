@@ -9,6 +9,7 @@ from server import create_app, db
 from server.api.auth.models import User
 from server.api.recipe.model import Ingredient
 from server.api.preference.models import Allergy
+from server.api.preference.models import Preference
 
 
 app = create_app()

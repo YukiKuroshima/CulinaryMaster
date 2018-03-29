@@ -9,6 +9,10 @@
                 {% for elem in allergies %}
                         <li>{{ elem.name }}</li>
                 {% endfor %}
+                <h4>Your Selected Diet Preference</h4>
+                {% for elem in diet_pref %}
+                        <li>{{ elem.diet_pref }}</li>
+                {% endfor %}
 		{% from "_form_field.html" import render_field %}
 		<form action="/preference" method="POST">
 			<div class="content">

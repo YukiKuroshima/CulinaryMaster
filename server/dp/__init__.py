@@ -44,7 +44,7 @@ def read_large_file(file_object):
 
 
 
-recipe_file_path = "/Users/robingoh/Documents/161Project/CulinaryMaster/server/dp/epi.csv"
+recipe_file_path = './server/dp/epi.csv'
 
 # Create a context manager to read and close file.
 with open(recipe_file_path) as file:
@@ -59,7 +59,7 @@ with open(recipe_file_path) as file:
 
 # Read recipes information from epi.csv
 # Need help fixing the path
-recipes_df = pd.read_csv("/Users/robingoh/Documents/161Project/CulinaryMaster/server/dp/epi.csv")
+recipes_df = pd.read_csv(recipe_file_path)
 
 def get_sorted_popular_property(recipe_data):
     """Get most popular property
