@@ -15,6 +15,10 @@ def profile():
         allergy_list = [x.strip() for x in allergy_str.split(',')]
         current_user.remove_all_allergies()
         current_user.add_allergies(allergy_list)
+        #Change class allergy to preference
+        #change allergy table to preference table
+        #have column for allergy, 
+        #have column for diet pref 
         return redirect("/preference")
 
     else:
