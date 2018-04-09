@@ -2,77 +2,28 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-{{ data }}
 <div id="recipe" class="container">
 	<div class="row">
 		
-		
 		<div class="ui link cards">		
-			<div class="card">
-				<a class="image" href="/recipe/id">
-					<img src="https://images.unsplash.com/photo-1482423064560-3e394ae8f216?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5f129e30860e5f930955ac0591bd57c8&auto=format&fit=crop&w=2250&q=80">
-				</a>
-				<div class="content">
-					<div class="header">Blue Berry Yogurt</div>
-					<div class="description">
-						You Have all the ingredients to make this.
-					</div>
-				</div>
-				<div class="extra content">
-					<span>
-						5 ingredients needed
-					</span>
-				</div>
-			</div>
+			{% for recipe in data %}
 			<div class="card col-md-4 col-sm-6">
-				<a class="image" href="/recipe/id">
-					<img src="https://images.unsplash.com/photo-1479894720049-067d8b87f2d9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ea23bfdafc40b5d5edcbb22c826ad444&auto=format&fit=crop&w=800&q=60">
+				<a class="image" href="/recipe/1234">
+					<img src="{{ recipe.image }}">
 				</a>
 				<div class="content">
-					<div class="header">Ham and Egg Sandwich</div>
+					<div class="header">{{ recipe.name }}</div>
 					<div class="description">
-						You Have all the ingredients to make this.
+						{{ recipe.description }}
 					</div>
 				</div>
 				<div class="extra content">
 					<span>
-						5 ingredients needed
+						{{ recipe.num_ingredients }} ingredients needed
 					</span>
 				</div>
 			</div>
-			<div class="card col-md-4 col-sm-6">
-				<a class="image" href="/recipe/id">
-					<img src="https://images.unsplash.com/photo-1505253213348-ce3e0ff1f0cc?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1630c0586fec21844a14927e29f9d92e&auto=format&fit=crop&w=800&q=60">
-				</a>
-				<div class="content">
-					<div class="header">Food Name</div>
-					<div class="description">
-						Elyse is a copywriter working in New York.
-					</div>
-				</div>
-				<div class="extra content">
-					<span>
-						7 ingredients needed
-					</span>
-				</div>
-			</div>
-
-			<div class="card col-md-4 col-sm-6">
-				<a class="image" href="/recipe/id">
-					<img src="https://images.unsplash.com/photo-1505233276084-d944dbc8f17d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=618086894afe9854ca3310f7f16e3e6e&auto=format&fit=crop&w=800&q=60">
-				</a>
-				<div class="content">
-					<div class="header">Mussel</div>
-					<div class="description">
-						Elyse is a copywriter working in New York.
-					</div>
-				</div>
-				<div class="extra content">
-					<span>
-						4 ingredients needed
-					</span>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 </div>
