@@ -1,8 +1,12 @@
 import pandas as pd
 import numpy as np
 import json
-# import numpy as np
 
+recipe_file_path = './server/dp/datasets/epi_r.csv'
+recipe_json_file_path = "./server/dp/datasets/full_format_recipes.json"
+
+# Read recipes information from epi.csv
+recipes_df = pd.read_csv(recipe_file_path)
 
 def data_processing():
 
@@ -25,6 +29,16 @@ def data_processing():
                 print(y)
 
     return temp_data
+recipes_df_json_m = pd.read_json(recipe_json_file_path)
+# with open(recipe_json_file_path) as json_data:
+#     recipes_df_json = json.load(json_data)
+# # Keep first 10 data
+# temp_data = recipes_df_json[0:1]
+# # Get only ingredient col
+# temp_data = list(map(lambda x: x['ingredients'], temp_data))
+
+
+# Since the dataset is large, reading data in with generator might save memory utilization.
 
 
 def read_large_file(file_object):
@@ -42,24 +56,17 @@ def read_large_file(file_object):
         # Yield the line of data
         yield data
 
+# # Create a context manager to read and close file.
+# with open(recipe_file_path) as file:
+#
+#     generator = read_large_file(file)
+#     labels = next(read_large_file(file))
+#
+#     # Iterate over the generator from read_large_file
+#     for line in generator:
+#         row = line.split(',')
 
 
-recipe_file_path = './server/dp/epi.csv'
-
-# Create a context manager to read and close file.
-with open(recipe_file_path) as file:
-
-    generator = read_large_file(file)
-    labels = next(read_large_file(file))
-
-    # Iterate over the generator from read_large_file
-    for line in generator:
-        row = line.split(',')
-
-
-# Read recipes information from epi.csv
-# Need help fixing the path
-recipes_df = pd.read_csv(recipe_file_path)
 
 def get_sorted_popular_property(recipe_data):
     """Get most popular property
@@ -90,81 +97,77 @@ def get_sorted_popular_property(recipe_data):
 # print(get_sorted_popular_property(recipes_df))
 
 
-
 def find_matching_recipes(keywords, recipes_data):
     """
-    Given a list of keywords find recipes that match the ingredients and return all the recipes
+    Given a list of keywords find recipes that match the keywords and return all the matched recipes
     and their matching percentage.
     Args:
-        keywords: A 'list' containing all the ingredients in user's inventory and other keywords such as allergy info.
+        keywords: A 'list' containing all the ingredients and other keywords in user's inventory and
+         other keywords such as allergy info.
     Returns:
-        (matched_recipes, match_percentage): A tuple containing two lists.
-            matched_recipes: A 'list' containing the name of recipes with at least one ingredient match.
-            match_percentage: A 'list' with the matching percentage for each recipe
-                              with regards to the inventorial ingredients.
+        result_df: A Pandas DataFrame containing:
+            Title: The name of the recipe with at least one keyword found in it.
+            Match Found: The number of keywords found in the recipe given a querying list of keywords.
+            Match Percentage: The percentage of matching, defined as match found divided by item count in each recipe.
+            Match Items: A list of matched keywords found in each recipe.
     """
+    result_list = []
+    for index, recipe in recipes_df.iterrows():
+        # The recipe title to be used as a key in found_count for storing recipe result name.
+        recipe_name = recipe["title"]
+
+        is_one_hot_true = map(lambda x: x == np.float(1), recipe)
+
+        # Recipe with only one-hot encoding column.
+        one_hot_recipe = recipe[is_one_hot_true]
+
+        found = 0
+        found_keywords = []
+        # Loop and count matching keywords in a recipe.
+        for keyword in keywords_from_inventory:
+            if keyword in one_hot_recipe:
+                found += 1
+                found_keywords.append(keyword)
+        if found != 0:
+            # matching_percentage = found_count[recipe_name] / one_hot_recipe.count() * 100
+            matching_percentage = found / one_hot_recipe.count() * 100.00
+
+            # Add results to DataFrame.
+            result_list.append({'Title': recipe_name,
+                                'Match Found': found,
+                                'Match Percentage': matching_percentage,
+                                'Match Items': found_keywords})
+
+    # Convert list of dicts to DataFrame.
+    result_df = pd.DataFrame(result_list)
+
+    # Specify DataFrame desired column order.
+    desired_order = ['Title', 'Match Found', 'Match Percentage', 'Match Items']
+    result_df = result_df[desired_order]
+
+    # Sort the result DataFrame based on the number of item found in descending order.
+    result_df = result_df.sort_values('Match Found', ascending=False)
+
+    return result_df
 
 
-recipe_json_file_path = "/Users/robingoh/Documents/161Project/CulinaryMaster/server/dp/full_format_recipes.json"
-recipes_df_json_m = pd.read_json(recipe_json_file_path)
-
-with open(recipe_json_file_path) as json_data:
-    recipes_df_json = json.load(json_data)
-
-# Keep first 10 data
-temp_data = recipes_df_json[0:1]
-
-# Get only ingredient col
-temp_data = list(map(lambda x: x['ingredients'], temp_data))
-
-
-inventory_keywords = ["lettuce", "chicken", "apple", "tomato"]
-# print if "chicken" is in the ingredient list
-# for x in temp_data:
-#     print(x)
-#     for y in x:
-#         if "chicken" in y:
-#             print(y)
-# print()
-
+# Test for find_matching_recipes
+keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey"]
 values = sorted(recipes_df_json_m[0:1]['categories'])
 for value in values:
     print(value)
-
-is_one_hot_true = map(lambda x: x == np.float(1), recipes_df.iloc[0])
-keywords_in_1st_recipe = (recipes_df.iloc[0][is_one_hot_true])
-print(keywords_in_1st_recipe)
-
-found_count = 0
-for keyword in inventory_keywords:
-    if keyword in keywords_in_1st_recipe:
-        print("found 1")
-        found_count += 1
+result = find_matching_recipes(keywords_from_inventory, recipes_df)
+print(result.head(10))
 
 
 
 
 
-
-
-
-
-
-
-
-"""
-Sort recipes based on criteria such as rating, calories, protein, fat, sodium etc.
-Args:
-    presorted_recipes: A list of recipes to be sorted.
-    criteria: The desired criteria to sort the recipes such as rating, calories, protein, fat, sodium etc.
-    order: A 'boolean' value of the order of the sort, ascending: True, descending: False.
-"""
-
-
-
-
-
-
-
-
-
+def keyword_sort():
+    """
+    Sort recipes based on criteria such as rating, calories, protein, fat, sodium etc.
+    Args:
+        presorted_recipes: A list of recipes to be sorted.
+        criteria: The desired criteria to sort the recipes such as rating, calories, protein, fat, sodium etc.
+        order: A 'boolean' value of the order of the sort, ascending: True, descending: False.
+    """
