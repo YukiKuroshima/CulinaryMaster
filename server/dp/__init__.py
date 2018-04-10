@@ -97,6 +97,21 @@ def get_sorted_popular_property(recipe_data):
 # print(get_sorted_popular_property(recipes_df))
 
 
+# This sort function might not be necessary since it can be achieved by directly calling df.sort_values().
+def keyword_sort(recipes_to_be_sorted, criteria, is_ascending=True):
+    """
+    Sort recipes based on criteria such as rating, calories, protein, fat, sodium etc.
+    Args:
+        recipes_to_be_sorted: A list of recipes to be sorted.
+        criteria: The desired criteria (column name) to sort the recipes such as rating, calories, protein, fat, sodium etc.
+        is_ascending: A 'boolean' value of the ordering of the sort, True: ascending, False: descending.
+    Return:
+        sorted_recipes: A sorted recipes DataFrame based on the criteria and ordering.
+    """
+    sorted_recipes = recipes_to_be_sorted.sort_values(criteria, ascending=is_ascending)
+    return sorted_recipes
+
+
 def find_matching_recipes(keywords, recipes_data):
     """
     Given a list of keywords find recipes that match the keywords and return all the matched recipes
@@ -147,6 +162,9 @@ def find_matching_recipes(keywords, recipes_data):
 
     # Sort the result DataFrame based on the number of item found in descending order.
     result_df = result_df.sort_values('Match Found', ascending=False)
+    print(result_df.head(10))
+    result_df = keyword_sort(result_df, 'Match Found', is_ascending=False)
+    print(result_df.head(10))
 
     return result_df
 
@@ -157,17 +175,6 @@ values = sorted(recipes_df_json_m[0:1]['categories'])
 for value in values:
     print(value)
 result = find_matching_recipes(keywords_from_inventory, recipes_df)
-print(result.head(10))
 
 
 
-
-
-def keyword_sort():
-    """
-    Sort recipes based on criteria such as rating, calories, protein, fat, sodium etc.
-    Args:
-        presorted_recipes: A list of recipes to be sorted.
-        criteria: The desired criteria to sort the recipes such as rating, calories, protein, fat, sodium etc.
-        order: A 'boolean' value of the order of the sort, ascending: True, descending: False.
-    """
