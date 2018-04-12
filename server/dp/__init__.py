@@ -28,7 +28,9 @@ def data_processing():
                 print(y)
 
     return temp_data
-recipes_df_json_m = pd.read_json(recipe_json_file_path)
+
+
+
 # with open(recipe_json_file_path) as json_data:
 #     recipes_df_json = json.load(json_data)
 # # Keep first 10 data
@@ -127,6 +129,8 @@ def find_matching_recipes(keywords):
     """
     # Read recipes information from epi.csv
     recipes_df = pd.read_csv(recipe_file_path)
+    recipes_df_json_m = pd.read_json(recipe_json_file_path)
+
 
     result_list = []
     for index, recipe in recipes_df.iterrows():
@@ -141,7 +145,7 @@ def find_matching_recipes(keywords):
         found = 0
         found_keywords = []
         # Loop and count matching keywords in a recipe.
-        for keyword in keywords_from_inventory:
+        for keyword in keywords:
             if keyword in one_hot_recipe:
                 found += 1
                 found_keywords.append(keyword)
@@ -170,14 +174,26 @@ def find_matching_recipes(keywords):
 
 
 # Test for find_matching_recipes
-keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey"]
+print()
+keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey", "bean"]
 
 
-values = sorted(recipes_df_json_m[0:1]['categories'])
-for value in values:
-    print(value)
+recipes_df_json_m = pd.read_json(recipe_json_file_path)
+print(list(recipes_df_json_m))
 
+# ['calories', 'categories', 'date', 'desc', 'directions', 'fat', 'ingredients', 'protein', 'rating', 'sodium', 'title']
+
+# values = recipes_df_json_m[0:1]['categories']
+# for value in values:
+#     print(value)
+#
 result = find_matching_recipes(keywords_from_inventory)
+result_indexes = result.index.values.tolist()
+# print(result_indexes)
+result_json_df = recipes_df_json_m[result_indexes]
+print(result_json_df.head())
+
+
 
 
 

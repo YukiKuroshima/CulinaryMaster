@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
 #from server.dp import data_processing
-from flask_login import  login_required, current_user
+from flask_login import login_required, current_user
 from server.api.recipe.model import Ingredient
 
 recipe_blueprint = Blueprint('recipe', __name__, template_folder='./templates')
