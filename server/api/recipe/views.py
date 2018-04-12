@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 #from server.dp import data_processing
 from flask_login import  login_required, current_user
 from server.api.recipe.model import Ingredient
+from server.dp import find_matching_recipes
 
 recipe_blueprint = Blueprint('recipe', __name__, template_folder='./templates')
 
@@ -31,7 +32,8 @@ def detail_recipe():
 def recipe():
 
     #data = data_processing()
-    return render_template('recipe.html', data=data)
+    recipe_data = find_matching_recipes(current_user.get_ingridients())
+    return render_template('recipe.html', data=data, temp=recipe_data)
 
 
 @login_required

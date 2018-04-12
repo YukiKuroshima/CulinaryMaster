@@ -112,7 +112,7 @@ def keyword_sort(recipes_to_be_sorted, criteria, is_ascending=True):
     return sorted_recipes
 
 
-def find_matching_recipes(keywords, recipes_data):
+def find_matching_recipes(keywords):
     """
     Given a list of keywords find recipes that match the keywords and return all the matched recipes
     and their matching percentage.
@@ -170,11 +170,11 @@ def find_matching_recipes(keywords, recipes_data):
 
 
 # Test for find_matching_recipes
-keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey"]
-values = sorted(recipes_df_json_m[0:1]['categories'])
-for value in values:
-    print(value)
-result = find_matching_recipes(keywords_from_inventory, recipes_df)
+# keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey"]
+# values = sorted(recipes_df_json_m[0:1]['categories'])
+# for value in values:
+#     print(value)
+# result = find_matching_recipes(keywords_from_inventory, recipes_df)
 
 
 
