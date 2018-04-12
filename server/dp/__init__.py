@@ -5,8 +5,7 @@ import json
 recipe_file_path = './server/dp/datasets/epi_r.csv'
 recipe_json_file_path = "./server/dp/datasets/full_format_recipes.json"
 
-# Read recipes information from epi.csv
-recipes_df = pd.read_csv(recipe_file_path)
+
 
 def data_processing():
 
@@ -112,7 +111,7 @@ def keyword_sort(recipes_to_be_sorted, criteria, is_ascending=True):
     return sorted_recipes
 
 
-def find_matching_recipes(keywords, recipes_data):
+def find_matching_recipes(keywords):
     """
     Given a list of keywords find recipes that match the keywords and return all the matched recipes
     and their matching percentage.
@@ -126,6 +125,9 @@ def find_matching_recipes(keywords, recipes_data):
             Match Percentage: The percentage of matching, defined as match found divided by item count in each recipe.
             Match Items: A list of matched keywords found in each recipe.
     """
+    # Read recipes information from epi.csv
+    recipes_df = pd.read_csv(recipe_file_path)
+
     result_list = []
     for index, recipe in recipes_df.iterrows():
         # The recipe title to be used as a key in found_count for storing recipe result name.
@@ -162,19 +164,20 @@ def find_matching_recipes(keywords, recipes_data):
 
     # Sort the result DataFrame based on the number of item found in descending order.
     result_df = result_df.sort_values('Match Found', ascending=False)
-    print(result_df.head(10))
     result_df = keyword_sort(result_df, 'Match Found', is_ascending=False)
-    print(result_df.head(10))
 
     return result_df
 
 
 # Test for find_matching_recipes
 keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey"]
+
+
 values = sorted(recipes_df_json_m[0:1]['categories'])
 for value in values:
     print(value)
-result = find_matching_recipes(keywords_from_inventory, recipes_df)
+
+result = find_matching_recipes(keywords_from_inventory)
 
 
 
