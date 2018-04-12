@@ -174,4 +174,5 @@ def find_matching_recipes(keywords):
 # values = sorted(recipes_df_json_m[0:1]['categories'])
 # for value in values:
 #     print(value)
-# result = find_matching_recipes(keywords_from_inventory, recipes_df)
+# result = find_matching_recipes(keywords_from_inventory)
+# print(result.head(10))

@@ -31,9 +31,9 @@ def detail_recipe():
 @recipe_blueprint.route('/recipe', methods=['GET'])
 def recipe():
 
-    #data = data_processing()
-    recipe_data = find_matching_recipes(current_user.get_ingridients())
-    return render_template('recipe.html', data=data, temp=recipe_data)
+    ingredients_list = [ing.name for ing in current_user.get_ingridients()]
+
+    return render_template('recipe.html', data=data)
 
 
 @login_required
