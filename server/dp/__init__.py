@@ -129,8 +129,6 @@ def find_matching_recipes(keywords):
     """
     # Read recipes information from epi.csv
     recipes_df = pd.read_csv(recipe_file_path)
-    recipes_df_json_m = pd.read_json(recipe_json_file_path)
-
 
     result_list = []
     for index, recipe in recipes_df.iterrows():
