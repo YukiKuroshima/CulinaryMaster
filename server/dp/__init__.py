@@ -113,7 +113,7 @@ def keyword_sort(recipes_to_be_sorted, criteria, is_ascending=True):
     return sorted_recipes
 
 
-def find_matching_recipes(keywords):
+def find_matching_recipes(keywords, result_count=15):
     """
     Given a list of keywords find recipes that match the keywords and return all the matched recipes
     and their matching percentage.
@@ -166,9 +166,8 @@ def find_matching_recipes(keywords):
 
     # Sort the result DataFrame based on the number of item found in descending order.
     result_df = result_df.sort_values('Match Found', ascending=False)
-    result_df = keyword_sort(result_df, 'Match Found', is_ascending=False)
 
-    return result_df
+    return result_df[0:result_count]
 
 
 # Test for find_matching_recipes
@@ -179,6 +178,7 @@ keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey", "b
 recipes_df_json_m = pd.read_json(recipe_json_file_path)
 print(list(recipes_df_json_m))
 
+# Names of child nodes in recipe json.
 # ['calories', 'categories', 'date', 'desc', 'directions', 'fat', 'ingredients', 'protein', 'rating', 'sodium', 'title']
 
 # values = recipes_df_json_m[0:1]['categories']
@@ -187,7 +187,7 @@ print(list(recipes_df_json_m))
 #
 result = find_matching_recipes(keywords_from_inventory)
 result_indexes = result.index.values.tolist()
-# print(result_indexes)
+print(result_indexes)
 result_json_df = recipes_df_json_m[result_indexes]
 print(result_json_df.head())
 
