@@ -37,9 +37,8 @@ def recipe():
 
     # Adding img url to the dictionary
     for key, value in result.items():
-        print(value['title']) 
+        print(str(value))
         recipe_img_url = fetch_img_url(value['title'])
-        print(recipe_img_url)
         result[key]['image'] = recipe_img_url
 
     return render_template('recipe.html', data=data, recipes=result)
