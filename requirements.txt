@@ -10,3 +10,5 @@ numpy
 Flask-WTF==0.14.2
 WTForms==2.1
 flask-login
+beautifulsoup4==4.6.0
+bs4==0.0.1

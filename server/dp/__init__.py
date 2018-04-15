@@ -130,14 +130,14 @@ def find_matching_recipes(keywords, result_count=15):
 
 
 # Test for find_matching_recipes
-keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey", "bean"]
-result, result_details = find_matching_recipes(keywords_from_inventory)
-
-print(type(result))
-pprint(result)
-
-print("Result details: " + str(type(result_details)))
-print(result_details)
+# keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey", "bean"]
+# result, result_details = find_matching_recipes(keywords_from_inventory)
+# 
+# print(type(result))
+# pprint(result)
+# 
+# print("Result details: " + str(type(result_details)))
+# print(result_details)
 
 
 
