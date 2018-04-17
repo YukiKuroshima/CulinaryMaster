@@ -21,9 +21,9 @@ data = [{	"name": "Blue Berry Yogurt",
 		]
 
 @login_required
-@recipe_blueprint.route('/recipe/1234', methods=['GET'])
-def detail_recipe():
-    return render_template('detail_recipe.html', data=id)
+@recipe_blueprint.route('/recipe/<id>', methods=['GET'])
+def detail_recipe(id=None):
+    return render_template('detail_recipe.html', data=recipe)
 
 
 @login_required

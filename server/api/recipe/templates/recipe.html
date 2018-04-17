@@ -8,7 +8,7 @@
 		<div class="ui link cards">		
 			{% for recipe in data %}
 			<div class="card col-md-4 col-sm-6">
-				<a class="image" href="/recipe/1234">
+				<a class="image" href="/recipe/{{ recipe.id }}">
 					<img src="{{ recipe.image }}">
 				</a>
 				<div class="content">
