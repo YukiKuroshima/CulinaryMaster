@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import pandas as pd
 import numpy as np
 import json
@@ -5,42 +7,8 @@ import json
 recipe_file_path = './server/dp/datasets/epi_r.csv'
 recipe_json_file_path = "./server/dp/datasets/full_format_recipes.json"
 
-# Read recipes information from epi.csv
-recipes_df = pd.read_csv(recipe_file_path)
-
-def data_processing():
-
-    recipe_csv = pd.read_csv('./server/dp/datasets/epi_r.csv')
-
-    with open('./server/dp/datasets/full_format_recipes.json') as json_data:
-        recipe_json = json.load(json_data)
-
-    # Keep first 10 data
-    temp_data = recipe_json[0:10]
-
-    # Get only ingredient col
-    temp_data = list(map(lambda x: x['ingredients'], temp_data))
-
-    # print if "chicken" is in the ingredient list
-    for x in temp_data:
-        print(x)
-        for y in x:
-            if "chicken" in y:
-                print(y)
-
-    return temp_data
-recipes_df_json_m = pd.read_json(recipe_json_file_path)
-# with open(recipe_json_file_path) as json_data:
-#     recipes_df_json = json.load(json_data)
-# # Keep first 10 data
-# temp_data = recipes_df_json[0:1]
-# # Get only ingredient col
-# temp_data = list(map(lambda x: x['ingredients'], temp_data))
-
 
 # Since the dataset is large, reading data in with generator might save memory utilization.
-
-
 def read_large_file(file_object):
     """A generator function to lazily read a large file"""
 
@@ -55,17 +23,6 @@ def read_large_file(file_object):
 
         # Yield the line of data
         yield data
-
-# # Create a context manager to read and close file.
-# with open(recipe_file_path) as file:
-#
-#     generator = read_large_file(file)
-#     labels = next(read_large_file(file))
-#
-#     # Iterate over the generator from read_large_file
-#     for line in generator:
-#         row = line.split(',')
-
 
 
 def get_sorted_popular_property(recipe_data):
@@ -98,21 +55,7 @@ def get_sorted_popular_property(recipe_data):
 
 
 # This sort function might not be necessary since it can be achieved by directly calling df.sort_values().
-def keyword_sort(recipes_to_be_sorted, criteria, is_ascending=True):
-    """
-    Sort recipes based on criteria such as rating, calories, protein, fat, sodium etc.
-    Args:
-        recipes_to_be_sorted: A list of recipes to be sorted.
-        criteria: The desired criteria (column name) to sort the recipes such as rating, calories, protein, fat, sodium etc.
-        is_ascending: A 'boolean' value of the ordering of the sort, True: ascending, False: descending.
-    Return:
-        sorted_recipes: A sorted recipes DataFrame based on the criteria and ordering.
-    """
-    sorted_recipes = recipes_to_be_sorted.sort_values(criteria, ascending=is_ascending)
-    return sorted_recipes
-
-
-def find_matching_recipes(keywords, recipes_data):
+def find_matching_recipes(keywords, result_count=15):
     """
     Given a list of keywords find recipes that match the keywords and return all the matched recipes
     and their matching percentage.
@@ -120,12 +63,16 @@ def find_matching_recipes(keywords, recipes_data):
         keywords: A 'list' containing all the ingredients and other keywords in user's inventory and
          other keywords such as allergy info.
     Returns:
-        result_df: A Pandas DataFrame containing:
+        partial_result_json: A list of dictionary containing result json objects.
+        partial_result_df: A Pandas DataFrame containing:
             Title: The name of the recipe with at least one keyword found in it.
             Match Found: The number of keywords found in the recipe given a querying list of keywords.
             Match Percentage: The percentage of matching, defined as match found divided by item count in each recipe.
             Match Items: A list of matched keywords found in each recipe.
     """
+    # Read recipes information from epi.csv
+    recipes_df = pd.read_csv(recipe_file_path)
+
     result_list = []
     for index, recipe in recipes_df.iterrows():
         # The recipe title to be used as a key in found_count for storing recipe result name.
@@ -139,7 +86,7 @@ def find_matching_recipes(keywords, recipes_data):
         found = 0
         found_keywords = []
         # Loop and count matching keywords in a recipe.
-        for keyword in keywords_from_inventory:
+        for keyword in keywords:
             if keyword in one_hot_recipe:
                 found += 1
                 found_keywords.append(keyword)
@@ -162,19 +109,36 @@ def find_matching_recipes(keywords, recipes_data):
 
     # Sort the result DataFrame based on the number of item found in descending order.
     result_df = result_df.sort_values('Match Found', ascending=False)
-    print(result_df.head(10))
-    result_df = keyword_sort(result_df, 'Match Found', is_ascending=False)
-    print(result_df.head(10))
 
-    return result_df
+    # Dataframe containing only the number of result desired.
+    partial_result_df = result_df[0:result_count]
+
+    # Get the index number of the matched recipe from the partial result.
+    result_indexes = partial_result_df.index.values.tolist()
+
+    # Read recipe.json file
+    recipes_json_df = pd.read_json(recipe_json_file_path)
+
+    # Get the partial recipe.json, all row in the indexes, and all col in the dataframe.
+    partial_recipes_json_df = recipes_json_df.iloc[result_indexes, :]
+
+    # Convert Dataframe to JSON
+    partial_result_json = partial_recipes_json_df.to_json(orient='index')
+    partial_result_json = json.JSONDecoder().decode(partial_result_json)
+
+    return partial_result_json, partial_result_df
 
 
 # Test for find_matching_recipes
-keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey"]
-values = sorted(recipes_df_json_m[0:1]['categories'])
-for value in values:
-    print(value)
-result = find_matching_recipes(keywords_from_inventory, recipes_df)
+# keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey", "bean"]
+# result, result_details = find_matching_recipes(keywords_from_inventory)
+# 
+# print(type(result))
+# pprint(result)
+# 
+# print("Result details: " + str(type(result_details)))
+# print(result_details)
+
 
 
 

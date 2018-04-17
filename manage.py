@@ -44,8 +44,12 @@ def seed_db():
          )
     test_user.save()
 
-    Ingredient(name="Test ingridient1", user_id=test_user.id).save()
-    Ingredient(name="Test ingridient2", user_id=test_user.id).save()
+    Ingredient(name="chicken", user_id=test_user.id).save()
+    Ingredient(name="apple", user_id=test_user.id).save()
+    Ingredient(name="tomato", user_id=test_user.id).save()
+    Ingredient(name="turkey", user_id=test_user.id).save()
+    Ingredient(name="bean", user_id=test_user.id).save()
+    Ingredient(name="lettuce", user_id=test_user.id).save()
 
     Allergy(name="Test allergy 1", user_id=test_user.id).save()
     Allergy(name="Test allergy 2", user_id=test_user.id).save()

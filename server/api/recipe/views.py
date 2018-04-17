@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template, request
 #from server.dp import data_processing
-from flask_login import  login_required, current_user
+from flask_login import login_required, current_user
 from server.api.recipe.model import Ingredient
+from server.dp import find_matching_recipes
+from server.api.recipe.img_url import fetch_img_url
 
 recipe_blueprint = Blueprint('recipe', __name__, template_folder='./templates')
 
@@ -30,8 +32,16 @@ def detail_recipe(id=None):
 @recipe_blueprint.route('/recipe', methods=['GET'])
 def recipe():
 
-    #data = data_processing()
-    return render_template('recipe.html', data=data)
+    ingredients_list = [ing.name for ing in current_user.get_ingridients()]
+    result, result_details = find_matching_recipes(ingredients_list)
+
+    # Adding img url to the dictionary
+    for key, value in result.items():
+        print(str(value))
+        recipe_img_url = fetch_img_url(value['title'])
+        result[key]['image'] = recipe_img_url
+
+    return render_template('recipe.html', data=data, recipes=result)
 
 
 @login_required
