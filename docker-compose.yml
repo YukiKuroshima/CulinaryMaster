@@ -4,7 +4,6 @@ services:
   nginx:
     container_name: nginx
     build: ./nginx/
-    restart: always
     ports:
       - 80:80
     depends_on:
@@ -15,7 +14,6 @@ services:
   db:
     container_name: db
     build: ./server/db
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
 
