@@ -55,9 +55,10 @@ def get_sorted_popular_property(recipe_data):
 
 
 def find_recipe_by_id(id):
-     # Read recipe.json file
+    print("what is the id: " + id)
+    # Read recipe.json file
     data = json.load(open(recipe_json_file_path))
-    recipe = data['root'][0]
+    recipe = data[int(id)]
     return recipe
 
 

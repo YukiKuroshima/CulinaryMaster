@@ -27,8 +27,8 @@ data = [{	"name": "Blue Berry Yogurt",
 def detail_recipe(id=None):
     print("Recipe id: " + id)
     recipe = find_recipe_by_id(id)
-    print(recipe)
-    return render_template('detail_recipe.html', data=recipe)
+    recipe_img_url = fetch_img_url(recipe['title'])
+    return render_template('detail_recipe.html', recipe=recipe, image=recipe_img_url)
 
 
 @login_required
@@ -40,7 +40,7 @@ def recipe():
 
     # Adding img url to the dictionary
     for key, value in result.items():
-        print(str(value))
+        #print(str(value))
         recipe_img_url = fetch_img_url(value['title'])
         result[key]['image'] = recipe_img_url
 
