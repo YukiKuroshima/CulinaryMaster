@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request
 #from server.dp import data_processing
 from flask_login import login_required, current_user
 from server.api.recipe.model import Ingredient
-from server.dp import find_matching_recipes
+from server.dp import find_matching_recipes, find_recipe_by_id
 from server.api.recipe.img_url import fetch_img_url
 
 recipe_blueprint = Blueprint('recipe', __name__, template_folder='./templates')
@@ -25,6 +25,9 @@ data = [{	"name": "Blue Berry Yogurt",
 @login_required
 @recipe_blueprint.route('/recipe/<id>', methods=['GET'])
 def detail_recipe(id=None):
+    print("Recipe id: " + id)
+    recipe = find_recipe_by_id(id)
+    print(recipe)
     return render_template('detail_recipe.html', data=recipe)
 
 

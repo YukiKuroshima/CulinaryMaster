@@ -54,6 +54,13 @@ def get_sorted_popular_property(recipe_data):
 # print(get_sorted_popular_property(recipes_df))
 
 
+def find_recipe_by_id(id):
+     # Read recipe.json file
+    data = json.load(open(recipe_json_file_path))
+    recipe = data['root'][0]
+    return recipe
+
+
 # This sort function might not be necessary since it can be achieved by directly calling df.sort_values().
 def find_matching_recipes(keywords, result_count=15):
     """

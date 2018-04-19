@@ -7,7 +7,7 @@
 		<div class="ui link cards">		
                         {% for key, value in recipes.items() %}
 			<div class="card col-md-4 col-sm-6">
-				<a class="image" href="/recipe/{{ value["id"] }}">
+				<a class="image" href="/recipe/{{ key }}">
 					<img src="{{ value["image"] }}">
 				</a>
 				<div class="content">

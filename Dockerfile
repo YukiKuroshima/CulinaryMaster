@@ -8,6 +8,7 @@ WORKDIR /usr/src/app
 ADD ./requirements.txt /usr/src/app/requirements.txt
 
 # install requirements
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # add app
