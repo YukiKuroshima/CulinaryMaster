@@ -63,7 +63,7 @@ def find_recipe_by_id(id):
 
 
 # This sort function might not be necessary since it can be achieved by directly calling df.sort_values().
-def find_matching_recipes(keywords, result_count=15):
+def find_matching_recipes(keywords, result_count=7):
     """
     Given a list of keywords find recipes that match the keywords and return all the matched recipes
     and their matching percentage.
