@@ -1,20 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Culinary Master</title>
-	 <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-	 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/landing.css') }}">
-</head>
-<body>
-	
-<div class="video">
-     <iframe frameborder="0" width="100%" height="100%" 
-      	src="https://www.youtube.com/embed/PZ4pctQMdg4?controls=0&showinfo=0&rel=0&autoplay=1&loop=1"></iframe>
-     
- </div>
-<div id="getStarted">
-	<a href="/login"><i class="fas fa-paw"></i>Get Started!</a>
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="container">
+	<div id="getStarted" style="text-align: center; font-size: 40px; font-weight: 600;">
+		<a href="/login"><i class="fas fa-paw"></i>Get Started!</a>
+	</div>
+	<div class="row">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-8" style="height: 600px;">
+			<div class="videoWrapper">
+
+				<iframe frameborder="0" width="750" height="422" 
+				src="https://www.youtube.com/embed/PZ4pctQMdg4?controls=0&showinfo=0&rel=0&autoplay=1&loop=1"></iframe>
+
+			</div>
+		</div>
+		<div class="col-lg-2"></div>		
+	</div>
 </div>
-			
-</body>
-</html>
+
+
+{% endblock%}

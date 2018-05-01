@@ -1,24 +1,18 @@
 //click on X to delete todos
 $("#inventory ul").on("click", "span", function(event){
-	$(this).parent().fadeOut(function(){
-
-    item_name = $(this)[0].childNodes[1].data;
-		$(this).remove();
-    ajaxDeleteIngridient(item_name);
-	});
-
-	event.stopPropagation();
-});
+  $(this).parent().fadeOut(function(){
+    $(this).remove();
+  });
+  event.stopPropagation();
+ });
 
 $("#inventory input[type='text']").keypress(function(event){
-	if(event.which === 13){
-		var item = $(this).val();
-		$(this).val("");
-		$("#inventory ul").append("<li><span><i class='fa fa-trash'></i></span>" + item + "</li>");
-
-    ajaxAddIngridient(item)
-	}
-});
+  if(event.which === 13){
+    var item = $(this).val();
+    $(this).val("");
+    $("#inventory ul").append("<li><span><i class='fa fa-trash'></i></span> " + item + "</li>");
+  }
+ });
 
 
 function ajaxAddIngridient(item) {
