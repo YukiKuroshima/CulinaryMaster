@@ -3,27 +3,25 @@
 
 {% block body %}
 <div id="recipe" class="container">
-	<div class="row">
-		<div class="ui link cards">		
-                        {% for key, value in recipes.items() %}
-			<div class="card col-md-4 col-sm-6">
-				<a class="image" href="/recipe/{{ key }}">
-					<img src="{{ value["image"] }}">
-				</a>
-				<div class="content">
-					<div class="header">{{ value["title"] }}</div>
-					<div class="description">
-						You Have all the ingredients to make this.
-                                        </div>
-				</div>
-				<div class="extra content">
-					<span>
-						5 ingredients needed
-					</span>
+	<div class="ui link cards">		
+		{% for key, value in recipes.items() %}
+		<div class="card">
+			<a class="image" href="/recipe/{{ key }}">
+				<img src="{{ value["image"] }}">
+			</a>
+			<div class="content">
+				<div class="header">{{ value["title"] }}</div>
+				<div class="description">
+					You Have all the ingredients to make this.
 				</div>
 			</div>
-			{% endfor %}
+			<div class="extra content">
+				<span>
+					5 ingredients needed
+				</span>
+			</div>
 		</div>
+		{% endfor %}
 	</div>
 </div>
 {% endblock%}
