@@ -8,8 +8,10 @@ from time import time, sleep
 from urllib.request import urlopen, Request
 from urllib.parse import quote
 from bs4 import BeautifulSoup
+import pickle
 
 MY_EMAIL_ADDR = ''
+
 
 class Fetcher:
     def __init__(self, ua=''):
@@ -27,7 +29,9 @@ class Fetcher:
             return None, None
         return b_content, mime
 
+
 fetcher = Fetcher(MY_EMAIL_ADDR)
+
 
 def fetch_img_url(word):
     temp = img_url_list(word)
