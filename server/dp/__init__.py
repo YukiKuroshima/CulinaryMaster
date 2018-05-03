@@ -24,7 +24,7 @@ def read_large_file(file_object):
         # Yield the line of data
         yield data
 
-
+# This sort function might not be necessary since it can be achieved by directly calling df.sort_values().
 def get_sorted_popular_property(recipe_data):
     """Get most popular property
     Args:
@@ -62,8 +62,6 @@ def find_recipe_by_id(id):
     return recipe
 
 
-# This sort function might not be necessary since it can be achieved by directly calling df.sort_values().
-# This sort function might not be necessary since it can be achieved by directly calling df.sort_values().
 def find_matching_recipes(keywords, result_count=15):
     """
     Given a list of keywords find recipes that match the keywords and return all the matched recipes
