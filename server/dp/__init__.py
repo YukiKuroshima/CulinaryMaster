@@ -63,7 +63,8 @@ def find_recipe_by_id(id):
 
 
 # This sort function might not be necessary since it can be achieved by directly calling df.sort_values().
-def find_matching_recipes(keywords, result_count=7):
+# This sort function might not be necessary since it can be achieved by directly calling df.sort_values().
+def find_matching_recipes(keywords, result_count=15):
     """
     Given a list of keywords find recipes that match the keywords and return all the matched recipes
     and their matching percentage.
@@ -73,34 +74,31 @@ def find_matching_recipes(keywords, result_count=7):
     Returns:
         partial_result_json: A list of dictionary containing result json objects.
         partial_result_df: A Pandas DataFrame containing:
-            Title: The name of the recipe with at least one keyword found in it.
+            Title: The name of the recipe with at least one keyword found in it
             Match Found: The number of keywords found in the recipe given a querying list of keywords.
             Match Percentage: The percentage of matching, defined as match found divided by item count in each recipe.
             Match Items: A list of matched keywords found in each recipe.
     """
-    # Read recipes information from epi.csv
-    recipes_df = pd.read_csv(recipe_file_path)
+
+    # Read recipes information from json file.
+    recipe_json = pd.read_json(recipe_json_file_path)
 
     result_list = []
-    for index, recipe in recipes_df.iterrows():
-        # The recipe title to be used as a key in found_count for storing recipe result name.
-        recipe_name = recipe["title"]
-
-        is_one_hot_true = map(lambda x: x == np.float(1), recipe)
-
-        # Recipe with only one-hot encoding column.
-        one_hot_recipe = recipe[is_one_hot_true]
-
+    for index, recipe in recipe_json.iterrows():
+        # if statement here is to omit some NaN entries in the dataset such as row 1076, 1135
+        if isinstance(recipe['categories'], list):
+            recipe_name = recipe["title"]
+            recipe_keywords = recipe['categories']
+            recipe_keywords = [x.lower() for x in recipe_keywords]
         found = 0
         found_keywords = []
         # Loop and count matching keywords in a recipe.
         for keyword in keywords:
-            if keyword in one_hot_recipe:
+            if keyword in recipe_keywords:
                 found += 1
                 found_keywords.append(keyword)
         if found != 0:
-            # matching_percentage = found_count[recipe_name] / one_hot_recipe.count() * 100
-            matching_percentage = found / one_hot_recipe.count() * 100.00
+            matching_percentage = found / len(recipe_keywords) * 100.00
 
             # Add results to DataFrame.
             result_list.append({'Title': recipe_name,
@@ -124,11 +122,8 @@ def find_matching_recipes(keywords, result_count=7):
     # Get the index number of the matched recipe from the partial result.
     result_indexes = partial_result_df.index.values.tolist()
 
-    # Read recipe.json file
-    recipes_json_df = pd.read_json(recipe_json_file_path)
-
     # Get the partial recipe.json, all row in the indexes, and all col in the dataframe.
-    partial_recipes_json_df = recipes_json_df.iloc[result_indexes, :]
+    partial_recipes_json_df = recipe_json.iloc[result_indexes, :]
 
     # Convert Dataframe to JSON
     partial_result_json = partial_recipes_json_df.to_json(orient='index')
@@ -138,9 +133,9 @@ def find_matching_recipes(keywords, result_count=7):
 
 
 # Test for find_matching_recipes
-keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey", "bean"]
-result, result_details = find_matching_recipes(keywords_from_inventory)
-
+# keywords_from_inventory = ["lettuce", "chicken", "apple", "tomato", "turkey", "bean"]
+# result, result_details = find_matching_recipes(keywords_from_inventory)
+#
 # print(type(result))
 # pprint(result)
 #
