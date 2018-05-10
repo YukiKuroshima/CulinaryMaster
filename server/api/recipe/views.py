@@ -21,15 +21,17 @@ def detail_recipe(id=None):
 @recipe_blueprint.route('/recipe', methods=['GET'])
 def recipe():
 
+
     ingredients_list = [ing.name for ing in current_user.get_ingridients()]
     result, result_details = find_matching_recipes(ingredients_list)
-
     # Adding img url to the dictionary
     for key, value in result.items():
         #print(str(value))
         recipe_img_url = fetch_img_url(value['title'])
         result[key]['image'] = recipe_img_url
-
+        result[key]['percentage'] = round(result_details.loc[int(key)]['Match Percentage'], 2)
+        list_of_missing_items = ', '.join(str(x) for x in result_details.loc[int(key)]['Missing Items'])
+        result[key]['missing_items'] = list_of_missing_items
     return render_template('recipe.html', recipes=result)
 
 
@@ -43,7 +45,9 @@ def newInventory():
 @login_required
 @recipe_blueprint.route('/ingridient', methods=['POST'])
 def add_ingridient():
+    print(request.form['item'])
     current_user.add_ingridient(request.form['item'])
+    ingredients_list = [ing.name for ing in current_user.get_ingridients()]
     return render_template('newInventory.html')
 
 

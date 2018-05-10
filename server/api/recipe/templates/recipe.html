@@ -12,12 +12,13 @@
 			<div class="content">
 				<div class="header">{{ value["title"] }}</div>
 				<div class="description">
-					You Have all the ingredients to make this.
+					Missing items: {{ value["missing_items"] }}
+
 				</div>
 			</div>
 			<div class="extra content">
 				<span>
-					5 ingredients needed
+					{{ value["percentage"] }}% match
 				</span>
 			</div>
 		</div>

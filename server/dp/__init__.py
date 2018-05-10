@@ -62,7 +62,7 @@ def find_recipe_by_id(id):
     return recipe
 
 
-def find_matching_recipes(keywords, result_count=15):
+def find_matching_recipes(keywords, result_count=6):
     """
     Given a list of keywords find recipes that match the keywords and return all the matched recipes
     and their matching percentage.
