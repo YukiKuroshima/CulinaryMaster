@@ -113,7 +113,7 @@ def find_matching_recipes(keywords, result_count=6):
     result_df = pd.DataFrame(result_list)
 
     # Specify DataFrame desired column order.
-    desired_order = ['Title', 'Match Found', 'Match Percentage', 'Match Items']
+    desired_order = ['Title', 'Match Found', 'Match Percentage', 'Missing Items']
     result_df = result_df[desired_order]
 
     # Sort the result DataFrame based on the number of item found in descending order.
