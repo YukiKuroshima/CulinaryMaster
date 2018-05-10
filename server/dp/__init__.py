@@ -75,7 +75,7 @@ def find_matching_recipes(keywords, result_count=6):
             Title: The name of the recipe with at least one keyword found in it
             Match Found: The number of keywords found in the recipe given a querying list of keywords.
             Match Percentage: The percentage of matching, defined as match found divided by item count in each recipe.
-            Match Items: A list of matched keywords found in each recipe.
+            Missing Items: A list of missing keywords found in each recipe.
     """
 
     # Read recipes information from json file.
