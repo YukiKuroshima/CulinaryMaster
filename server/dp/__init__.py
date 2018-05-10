@@ -89,12 +89,17 @@ def find_matching_recipes(keywords, result_count=6):
             recipe_keywords = recipe['categories']
             recipe_keywords = [x.lower() for x in recipe_keywords]
         found = 0
-        found_keywords = []
+        # Won't be used for now.
+        # found_keywords = []
+
+        # Copy the list of keywords.
+        keywords_not_found = list(recipe_keywords)
         # Loop and count matching keywords in a recipe.
         for keyword in keywords:
             if keyword in recipe_keywords:
                 found += 1
-                found_keywords.append(keyword)
+                # found_keywords.append(keyword)
+                keywords_not_found.remove(keyword)
         if found != 0:
             matching_percentage = found / len(recipe_keywords) * 100.00
 
@@ -102,7 +107,7 @@ def find_matching_recipes(keywords, result_count=6):
             result_list.append({'Title': recipe_name,
                                 'Match Found': found,
                                 'Match Percentage': matching_percentage,
-                                'Match Items': found_keywords})
+                                'Missing Items': keywords_not_found})
 
     # Convert list of dicts to DataFrame.
     result_df = pd.DataFrame(result_list)
